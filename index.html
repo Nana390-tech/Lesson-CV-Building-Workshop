@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Building Workshop - the Lesson</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .designer {
+            font-size: 0.9em;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .module-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .module-btn {
+            padding: 15px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .module-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .module-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .module-btn.completed {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .module-btn.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .module-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .module-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .vocab-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vocab-word {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .vocab-translation {
+            color: #666;
+            font-style: italic;
+        }
+
+        .audio-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .audio-btn:hover {
+            background: #764ba2;
+        }
+
+        .example-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .example-box strong {
+            color: #2196F3;
+        }
+
+        .word-bank {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #ffc107;
+        }
+
+        .word-bank-title {
+            font-weight: bold;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .word-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .word-chip {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #ffc107;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .word-chip:hover {
+            background: #ffc107;
+            transform: scale(1.05);
+        }
+
+        .word-chip.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .blank-space {
+            display: inline-block;
+            min-width: 150px;
+            border-bottom: 2px solid #667eea;
+            padding: 5px 10px;
+            margin: 0 5px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+        }
+
+        .hint-btn {
+            background: #ff9800;
+            font-size: 0.9em;
+            padding: 10px 20px;
+        }
+
+        .hint-box {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+            display: none;
+        }
+
+        .hint-box.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 500px; }
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .quiz-option {
+            background: white;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quiz-option.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .certificate {
+            background: white;
+            border: 10px solid #667eea;
+            padding: 40px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .certificate h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .certificate-text {
+            font-size: 1.2em;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .badge {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .module-nav {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .drag-drop-area {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 100px;
+            border: 2px dashed #667eea;
+            margin: 15px 0;
+        }
+
+        .draggable-word {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: move;
+            user-select: none;
+        }
+
+        .drop-zone {
+            display: inline-block;
+            min-width: 120px;
+            min-height: 40px;
+            border: 2px dashed #999;
+            border-radius: 5px;
+            margin: 0 5px;
+            padding: 5px 10px;
+            vertical-align: middle;
+        }
+
+        .drop-zone.filled {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+
+        .flashcard {
+            background: white;
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .flashcard-back {
+            background: #4CAF50;
+            color: white;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 CV Building Workshop - the Lesson</h1>
+            <p>Higher Colleges of Technology</p>
+            <p class="designer">Designed by: Nazila Motahari</p>
+        </div>
+
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+
+            <div class="module-nav">
+                <div class="module-btn active" onclick="showModule(1)">
+                    Module 1<br>Understanding CVs
+                </div>
+                <div class="module-btn locked" onclick="showModule(2)">
+                    Module 2<br>Personal Info
+                </div>
+                <div class="module-btn locked" onclick="showModule(3)">
+                    Module 3<br>Education
+                </div>
+                <div class="module-btn locked" onclick="showModule(4)">
+                    Module 4<br>Work & Skills
+                </div>
+                <div class="module-btn locked" onclick="showModule(5)">
+                    Module 5<br>Writing Sentences
+                </div>
+                <div class="module-btn locked" onclick="showModule(6)">
+                    Module 6<br>Final Quiz
+                </div>
+            </div>
+
+            <!-- Module 1: Understanding CVs -->
+            <div class="module-content active" id="module1">
+                <h2 class="section-title">📋 Module 1: Understanding CVs</h2>
+                
+                <div class="card">
+                    <h3>What is a CV?</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">
+                        A <strong>CV</strong> (Curriculum Vitae) is a document about YOU. It tells employers:
+                    </p>
+                    <ul style="font-size: 1.1em; line-height: 1.8; margin-left: 30px;">
+                        <li>✅ Your name and contact information</li>
+                        <li>✅ Your education (where you studied)</li>
+                        <li>✅ Your work experience (jobs you had)</li>
+                        <li>✅ Your skills (what you can do)</li>
+                    </ul>
+                    <div class="example-box">
+                        <strong>💡 Remember:</strong> A good CV helps you get a job interview!
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Important CV Vocabulary</h3>
+                    <p style="margin-bottom: 20px;">Click the 🔊 to hear the word!</p>
+                    
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Resume / CV</div>
+                            <div class="vocab-translation">السيرة الذاتية</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Resume')">🔊</button>
+                    </div>
+
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Personal Information</div>
+                            <div class="vocab-translation">المعلومات الشخصية</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Personal Information')">🔊</button>
+                    </div>
+
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Education</div>
+                            <div class="vocab-translation">التعليم</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Education')">🔊</button>
+                    </div>
+
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Work Experience</div>
+                            <div class="vocab-translation">الخبرة العملية</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Work Experience')">🔊</button>
+                    </div>
+
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Skills</div>
+                            <div class="vocab-translation">المهارات</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Skills')">🔊</button>
+                    </div>
+
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">Employer</div>
+                            <div class="vocab-translation">صاحب العمل</div>
+                        </div>
+                        <button class="audio-btn" onclick="speak('Employer')">🔊</button>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="completeModule(1)">Continue to Module 2 ➡️</button>
+            </div>
+
+            <!-- Module 2: Personal Information -->
+            <div class="module-content" id="module2">
+                <h2 class="section-title">👤 Module 2: Personal Information</h2>
+                
+                <div class="card">
+                    <h3>How to Write Your Contact Details</h3>
+                    <div class="example-box">
+                        <strong>📝 Example:</strong><br>
+                        Name: Ahmed Ali Mohammed<br>
+                        Phone: +971 50 123 4567<br>
+                        Email: ahmed.ali@email.com<br>
+                        Location: Dubai, UAE
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>✏️ Practice: Complete the Sentences</h3>
+                    <p><strong>Fill in YOUR information below:</strong></p>
+
+                    <div class="word-bank">
+                        <div class="word-bank-title">💡 Helpful Words:</div>
+                        <p>My / I / name / phone / email / live / am</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>1. My name is <input type="text" id="q2_1" placeholder="Write your full name"></label>
+                    </div>
+
+                    <div class="input-group">
+                        <label>2. I live in <input type="text" id="q2_2" placeholder="Write your city"></label>
+                    </div>
+
+                    <div class="input-group">
+                        <label>3. My phone number is <input type="text" id="q2_3" placeholder="Write your phone number"></label>
+                    </div>
+
+                    <div class="input-group">
+                        <label>4. My email address is <input type="text" id="q2_4" placeholder="Write your email"></label>
+                    </div>
+
+                    <button class="btn hint-btn" onclick="toggleHint('hint2')">💡 Need Help?</button>
+                    <div class="hint-box" id="hint2">
+                        <strong>Tips:</strong><br>
+                        • Use capital letters for names<br>
+                        • Include +971 for UAE phone numbers<br>
+                        • Check your email spelling carefully!
+                    </div>
+
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+
+                <button class="btn" onclick="checkModule2()">Check My Answers ✓</button>
+                <button class="btn btn-secondary" style="display:none;" id="nextBtn2" onclick="completeModule(2)">Continue to Module 3 ➡️</button>
+            </div>
+
+            <!-- Module 3: Education -->
+            <div class="module-content" id="module3">
+                <h2 class="section-title">🎓 Module 3: Writing About Education</h2>
+                
+                <div class="card">
+                    <h3>📖 Learn the Grammar</h3>
+                    <div class="example-box">
+                        <strong>Present Simple (Now):</strong><br>
+                        ✅ I study Engineering at Higher Colleges of Technology.<br>
+                        ✅ I am studying Computer Science.<br><br>
+                        <strong>Past Simple (Finished):</strong><br>
+                        ✅ I graduated from Al Ain High School in 2022.<br>
+                        ✅ I completed my diploma last year.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Common Sentence Starters</h3>
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">I study...</div>
+                            <div class="vocab-translation">أدرس...</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">I am currently studying...</div>
+                            <div class="vocab-translation">أدرس حاليا...</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">I graduated from...</div>
+                            <div class="vocab-translation">تخرجت من...</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card">
+                        <div>
+                            <div class="vocab-word">I completed...</div>
+                            <div class="vocab-translation">أكملت...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>✏️ Practice: Build Your Sentences</h3>
+                    
+                    <div class="word-bank">
+                        <div class="word-bank-title">💡 Word Bank - Choose words to complete sentences:</div>
+                        <div class="word-chips">
+                            <div class="word-chip">Engineering</div>
+                            <div class="word-chip">Business</div>
+                            <div class="word-chip">Information Technology</div>
+                            <div class="word-chip">Health Sciences</div>
+                            <div class="word-chip">study</div>
+                            <div class="word-chip">graduated</div>
+                            <div class="word-chip">completed</div>
+                            <div class="word-chip">2023</div>
+                            <div class="word-chip">2024</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>1. Write about what you study NOW:</label>
+                        <input type="text" id="q3_1" placeholder="I study... / I am currently studying...">
+                        <div class="example-box" style="margin-top: 10px; font-size: 0.9em;">
+                            Example: I study Engineering at Higher Colleges of Technology.
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>2. Write about your high school (PAST):</label>
+                        <input type="text" id="q3_2" placeholder="I graduated from...">
+                        <div class="example-box" style="margin-top: 10px; font-size: 0.9em;">
+                            Example: I graduated from Dubai National School in 2023.
+                        </div>
+                    </div>
+
+                    <button class="btn hint-btn" onclick="toggleHint('hint3')">💡 Need Help?</button>
+                    <div class="hint-box" id="hint3">
+                        <strong>Remember:</strong><br>
+                        • Use "study" or "am studying" for NOW<br>
+                        • Use "graduated" or "completed" for FINISHED education<br>
+                        • Always include the name of your school/college<br>
+                        • Add the year if you remember!
+                    </div>
+
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+
+                <button class="btn" onclick="checkModule3()">Check My Answers ✓</button>
+                <button class="btn btn-secondary" style="display:none;" id="nextBtn3" onclick="completeModule(3)">Continue to Module 4 ➡️</button>
+            </div>
+
+            <!-- Module 4: Work Experience & Skills -->
+            <div class="module-content" id="module4">
+                <h2 class="section-title">💼 Module 4: Work Experience & Skills</h2>
+                
+                <div class="card">
+                    <h3>💪 Action Verbs for Your CV</h3>
+                    <p style="margin-bottom: 15px;">These strong verbs make your CV better!</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Managed</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>أدرت / قمت بإدارة</h3>
+                                    <p>Example: I managed a team</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Helped</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>ساعدت</h3>
+                                    <p>Example: I helped customers</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Organized</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>نظمت</h3>
+                                    <p>Example: I organized events</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Created</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>أنشأت</h3>
+                                    <p>Example: I created reports</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Worked</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>عملت</h3>
+                                    <p>Example: I worked as a cashier</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-container" onclick="flipCard(this)">
+                            <div class="flashcard">
+                                <div class="flashcard-front">
+                                    <h3>Assisted</h3>
+                                    <p>Click to see translation</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <h3>ساعدت</h3>
+                                    <p>Example: I assisted my manager</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>✏️ Practice: Writing About Work Experience</h3>
+                    
+                    <div class="word-bank">
+                        <div class="word-bank-title">💡 Sentence Starters - Copy and complete ONE:</div>
+                        <div style="background: white; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                            <p>✅ I worked as a __________ at __________.</p>
+                            <p>✅ I helped with __________ at __________.</p>
+                            <p>✅ I volunteered at __________ and I __________.</p>
+                            <p>✅ I do not have work experience yet.</p>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Write ONE sentence about your work experience (or write "I do not have work experience yet"):</label>
+                        <textarea id="q4_1" rows="3" placeholder="Example: I worked as a cashier at Carrefour. I helped customers and organized shelves."></textarea>
+                    </div>
+
+                    <button class="btn hint-btn" onclick="toggleHint('hint4a')">💡 Need Help?</button>
+                    <div class="hint-box" id="hint4a">
+                        <strong>It's OK if you don't have work experience!</strong><br>
+                        You can write about:<br>
+                        • Volunteer work<br>
+                        • Helping family business<br>
+                        • School projects<br>
+                        • Or simply: "I do not have work experience yet, but I am eager to learn."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Skills Section</h3>
+                    <p><strong>Complete this sentence:</strong></p>
+                    
+                    <div class="word-bank">
+                        <div class="word-bank-title">💡 Skills Word Bank:</div>
+                        <div class="word-chips">
+                            <div class="word-chip">Microsoft Office</div>
+                            <div class="word-chip">Excel</div>
+                            <div class="word-chip">PowerPoint</div>
+                            <div class="word-chip">teamwork</div>
+                            <div class="word-chip">communication</div>
+                            <div class="word-chip">problem-solving</div>
+                            <div class="word-chip">time management</div>
+                            <div class="word-chip">Arabic</div>
+                            <div class="word-chip">English</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Write 2-3 skills you have:</label>
+                        <textarea id="q4_2" rows="3" placeholder="Example: I am good at teamwork and communication. I can use Microsoft Office."></textarea>
+                        <div class="example-box" style="margin-top: 10px;">
+                            <strong>Use these patterns:</strong><br>
+                            • I am good at __________<br>
+                            • I can __________<br>
+                            • I have skills in __________
+                        </div>
+                    </div>
+
+                    <button class="btn hint-btn" onclick="toggleHint('hint4b')">💡 Need Help?</button>
+                    <div class="hint-box" id="hint4b">
+                        <strong>Types of Skills:</strong><br>
+                        <strong>Technical Skills:</strong> Computer programs, languages, tools<br>
+                        <strong>Soft Skills:</strong> Teamwork, communication, leadership<br><br>
+                        Include BOTH types in your CV!
+                    </div>
+
+                    <div class="feedback" id="feedback4"></div>
+                </div>
+
+                <button class="btn" onclick="checkModule4()">Check My Answers ✓</button>
+                <button class="btn btn-secondary" style="display:none;" id="nextBtn4" onclick="completeModule(4)">Continue to Module 5 ➡️</button>
+            </div>
+
+            <!-- Module 5: Writing Professional Sentences -->
+            <div class="module-content" id="module5">
+                <h2 class="section-title">✍️ Module 5: Writing Professional Sentences</h2>
+                
+                <div class="card">
+                    <h3>✅ Do's and ❌ Don'ts for CV Language</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: #d4edda; padding: 20px; border-radius: 10px;">
+                            <h4 style="color: #155724;">✅ DO:</h4>
+                            <ul style="line-height: 2;">
+                                <li>Use action verbs</li>
+                                <li>Be specific</li>
+                                <li>Use simple sentences</li>
+                                <li>Check spelling</li>
+                                <li>Be honest</li>
+                            </ul>
+                        </div>
+                        <div style="background: #f8d7da; padding: 20px; border-radius: 10px;">
+                            <h4 style="color: #721c24;">❌ DON'T:</h4>
+                            <ul style="line-height: 2;">
+                                <li>Use slang words</li>
+                                <li>Write long sentences</li>
+                                <li>Make spelling mistakes</li>
+                                <li>Lie about skills</li>
+                                <li>Use "I" too much</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Practice: Fix the Mistakes</h3>
+                    <p><strong>These sentences have problems. Choose the CORRECT version:</strong></p>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 1:</strong> Which sentence is better for a CV?</p>
+                        <div class="quiz-option" onclick="selectOption(this, false, 5, 1)">
+                            A) I'm super good at computers and stuff
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, true, 5, 1)">
+                            B) I have strong computer skills and experience with Microsoft Office
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 2:</strong> Which sentence is better?</p>
+                        <div class="quiz-option" onclick="selectOption(this, false, 5, 2)">
+                            A) I worked at a shop and did lots of different things and helped people
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, true, 5, 2)">
+                            B) I worked as a sales assistant. I helped customers and managed inventory.
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 3:</strong> Which sentence uses better action verbs?</p>
+                        <div class="quiz-option" onclick="selectOption(this, false, 5, 3)">
+                            A) I did work with social media
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, true, 5, 3)">
+                            B) I managed social media accounts and created content
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 4:</strong> Which is more professional?</p>
+                        <div class="quiz-option" onclick="selectOption(this, true, 5, 4)">
+                            A) I graduated from Higher Colleges of Technology with a diploma in Engineering
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, false, 5, 4)">
+                            B) I went to HCT and got my diploma
+                        </div>
+                    </div>
+
+                    <button class="btn hint-btn" onclick="toggleHint('hint5')">💡 Need Help?</button>
+                    <div class="hint-box" id="hint5">
+                        <strong>Remember:</strong><br>
+                        • Use specific action verbs (managed, created, organized)<br>
+                        • Avoid slang words (super, stuff, lots)<br>
+                        • Keep sentences short and clear<br>
+                        • Be professional (no abbreviations like "I'm")
+                    </div>
+
+                    <div class="feedback" id="feedback5"></div>
+                    <div class="score-display" id="score5" style="display:none;"></div>
+                </div>
+
+                <button class="btn" onclick="checkModule5()">Check My Answers ✓</button>
+                <button class="btn btn-secondary" style="display:none;" id="nextBtn5" onclick="completeModule(5)">Continue to Final Quiz ➡️</button>
+            </div>
+
+            <!-- Module 6: Final Quiz -->
+            <div class="module-content" id="module6">
+                <h2 class="section-title">🎯 Module 6: Final Quiz</h2>
+                
+                <div class="card">
+                    <h3>📝 Final Assessment</h3>
+                    <p><strong>Answer these questions to show what you learned! You need 80% to pass.</strong></p>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 1:</strong> What does CV stand for?</p>
+                        <div class="quiz-option" onclick="selectFinalOption(this, true, 1)">
+                            A) Curriculum Vitae (a document about your education and work)
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 1)">
+                            B) Computer Video
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 1)">
+                            C) Career Vision
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 2:</strong> Which sentence is correct for writing about current education?</p>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 2)">
+                            A) I graduated from HCT
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, true, 2)">
+                            B) I am currently studying at HCT
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 2)">
+                            C) I will study at HCT
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 3:</strong> Which is a good action verb for a CV?</p>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 3)">
+                            A) Did
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, true, 3)">
+                            B) Managed
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 3)">
+                            C) Stuff
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 4:</strong> What should you include in the Personal Information section?</p>
+                        <div class="quiz-option" onclick="selectFinalOption(this, true, 4)">
+                            A) Name, phone number, email, location
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 4)">
+                            B) Your favorite color and food
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 4)">
+                            C) Your friends' names
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>Question 5:</strong> Which sentence is better for a CV?</p>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 5)">
+                            A) I'm really good at talking to people and stuff
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, true, 5)">
+                            B) I have strong communication skills and experience in customer service
+                        </div>
+                        <div class="quiz-option" onclick="selectFinalOption(this, false, 5)">
+                            C) I can talk good
+                        </div>
+                    </div>
+
+                    <div class="feedback" id="feedback6"></div>
+                    <div class="score-display" id="finalScore" style="display:none;"></div>
+                </div>
+
+                <button class="btn" onclick="checkFinalQuiz()">Submit Quiz ✓</button>
+            </div>
+
+            <!-- Certificate -->
+            <div class="module-content" id="certificate" style="display:none;">
+                <div class="certificate">
+                    <div class="badge">🏆</div>
+                    <h2>Certificate of Completion</h2>
+                    <div class="certificate-text">
+                        <p>This certifies that</p>
+                        <h3 style="color: #667eea; font-size: 2em; margin: 20px 0;" id="studentName">Student Name</h3>
+                        <p>has successfully completed the</p>
+                        <h3 style="color: #764ba2;">CV Building Workshop - the Lesson</h3>
+                        <p style="margin-top: 20px;">Higher Colleges of Technology</p>
+                        <p style="font-size: 0.9em; color: #666;">Designed by: Nazila Motahari</p>
+                        <p style="margin-top: 30px; font-size: 0.9em;">Date: <span id="completionDate"></span></p>
+                    </div>
+                    <button class="btn" onclick="downloadCertificate()">Download Certificate 📥</button>
+                    <button class="btn btn-success" onclick="trackCVBuilder(); window.open('https://nana390-tech.github.io/CV-Building-Coach-/', '_blank')">
+                        Build Your CV Now! 📄
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let progress = {
+            module1: false,
+            module2: false,
+            module3: false,
+            module4: false,
+            module5: false,
+            module6: false
+        };
+
+        let quizAnswers = {
+            module5: {},
+            finalQuiz: {}
+        };
+
+        function updateProgress() {
+            const completed = Object.values(progress).filter(v => v).length;
+            const percentage = (completed / 6) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressFill').textContent = Math.round(percentage) + '%';
+        }
+
+        function showModule(num) {
+            const moduleBtn = document.querySelectorAll('.module-btn')[num - 1];
+            if (moduleBtn.classList.contains('locked')) {
+                alert('Please complete the previous modules first!');
+                return;
+            }
+
+            document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById('module' + num).classList.add('active');
+            moduleBtn.classList.add('active');
+            
+            // Track module view
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'module_view', {
+                    'module_number': num,
+                    'module_name': 'Module ' + num
+                });
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function completeModule(num) {
+            progress['module' + num] = true;
+            updateProgress();
+            
+            const moduleBtn = document.querySelectorAll('.module-btn')[num - 1];
+            moduleBtn.classList.add('completed');
+            
+            // Track module completion
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'module_complete', {
+                    'module_number': num,
+                    'module_name': 'Module ' + num
+                });
+            }
+            
+            if (num < 6) {
+                const nextBtn = document.querySelectorAll('.module-btn')[num];
+                nextBtn.classList.remove('locked');
+                showModule(num + 1);
+            }
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+                
+                // Track audio usage
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'audio_pronunciation', {
+                        'word': text
+                    });
+                }
+            }
+        }
+
+        function toggleHint(id) {
+            const hint = document.getElementById(id);
+            hint.classList.toggle('show');
+            
+            // Track hint usage
+            if (hint.classList.contains('show') && typeof gtag !== 'undefined') {
+                gtag('event', 'hint_viewed', {
+                    'hint_id': id
+                });
+            }
+        }
+
+        function checkModule2() {
+            const q1 = document.getElementById('q2_1').value.trim();
+            const q2 = document.getElementById('q2_2').value.trim();
+            const q3 = document.getElementById('q2_3').value.trim();
+            const q4 = document.getElementById('q2_4').value.trim();
+
+            const feedback = document.getElementById('feedback2');
+            
+            if (q1 && q2 && q3 && q4) {
+                feedback.className = 'feedback correct show';
+                feedback.textContent = '✅ Great job! You completed all the personal information fields!';
+                document.getElementById('nextBtn2').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.textContent = '❌ Please fill in all the fields before continuing.';
+            }
+        }
+
+        function checkModule3() {
+            const q1 = document.getElementById('q3_1').value.trim();
+            const q2 = document.getElementById('q3_2').value.trim();
+
+            const feedback = document.getElementById('feedback3');
+            
+            if (q1 && q2) {
+                feedback.className = 'feedback correct show';
+                feedback.textContent = '✅ Excellent! You wrote sentences about your education!';
+                document.getElementById('nextBtn3').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.textContent = '❌ Please complete both sentences before continuing.';
+            }
+        }
+
+        function checkModule4() {
+            const q1 = document.getElementById('q4_1').value.trim();
+            const q2 = document.getElementById('q4_2').value.trim();
+
+            const feedback = document.getElementById('feedback4');
+            
+            if (q1 && q2) {
+                feedback.className = 'feedback correct show';
+                feedback.textContent = '✅ Well done! You wrote about your experience and skills!';
+                document.getElementById('nextBtn4').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.textContent = '❌ Please complete both sections before continuing.';
+            }
+        }
+
+        function selectOption(element, isCorrect, module, question) {
+            const allOptions = element.parentElement.querySelectorAll('.quiz-option');
+            allOptions.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+
+            quizAnswers['module' + module][question] = isCorrect;
+        }
+
+        function checkModule5() {
+            const answers = quizAnswers.module5;
+            if (Object.keys(answers).length < 4) {
+                alert('Please answer all questions!');
+                return;
+            }
+
+            const correct = Object.values(answers).filter(v => v).length;
+            const percentage = (correct / 4) * 100;
+
+            const score = document.getElementById('score5');
+            const feedback = document.getElementById('feedback5');
+            
+            score.style.display = 'block';
+            score.textContent = `Your Score: ${correct}/4 (${Math.round(percentage)}%)`;
+
+            // Track Module 5 quiz attempt
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_attempt', {
+                    'quiz_name': 'Module 5 Quiz',
+                    'score': correct,
+                    'total': 4,
+                    'percentage': Math.round(percentage),
+                    'passed': percentage >= 75
+                });
+            }
+
+            if (percentage >= 75) {
+                feedback.className = 'feedback correct show';
+                feedback.textContent = '✅ Great work! You understand how to write professional CV sentences!';
+                document.getElementById('nextBtn5').style.display = 'inline-block';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.textContent = '❌ You need 75% to pass. Please review the examples and try again!';
+                setTimeout(() => location.reload(), 3000);
+            }
+        }
+
+        function selectFinalOption(element, isCorrect, question) {
+            const parent = element.parentElement;
+            const allOptions = parent.querySelectorAll('.quiz-option');
+            allOptions.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+
+            quizAnswers.finalQuiz[question] = isCorrect;
+        }
+
+        function checkFinalQuiz() {
+            const answers = quizAnswers.finalQuiz;
+            if (Object.keys(answers).length < 5) {
+                alert('Please answer all questions!');
+                return;
+            }
+
+            const correct = Object.values(answers).filter(v => v).length;
+            const percentage = (correct / 5) * 100;
+
+            const score = document.getElementById('finalScore');
+            const feedback = document.getElementById('feedback6');
+            
+            score.style.display = 'block';
+            score.innerHTML = `<div style="font-size: 2em;">🎯</div>Your Final Score: ${correct}/5 (${Math.round(percentage)}%)`;
+
+            // Track Final Quiz attempt
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'final_quiz_attempt', {
+                    'quiz_name': 'Final Quiz',
+                    'score': correct,
+                    'total': 5,
+                    'percentage': Math.round(percentage),
+                    'passed': percentage >= 80
+                });
+            }
+
+            if (percentage >= 80) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '🎉 <strong>Congratulations!</strong> You passed the CV Building Workshop! Your certificate is being prepared...';
+                progress.module6 = true;
+                updateProgress();
+                
+                // Automatically show certificate after 2 seconds
+                setTimeout(() => {
+                    const name = prompt('🎉 Congratulations! Enter your full name for the certificate:');
+                    if (name) {
+                        document.getElementById('studentName').textContent = name;
+                        document.getElementById('completionDate').textContent = new Date().toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                        
+                        // Track certificate generation
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'certificate_generated', {
+                                'student_name': name,
+                                'completion_date': new Date().toLocaleDateString()
+                            });
+                        }
+                        
+                        document.querySelectorAll('.module-content').forEach(m => m.style.display = 'none');
+                        document.getElementById('certificate').style.display = 'block';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        
+                        // Celebration animation
+                        celebrate();
+                    }
+                }, 2000);
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.textContent = '❌ You need 80% to pass. Please review the lessons and try again!';
+                setTimeout(() => location.reload(), 3000);
+            }
+        }
+
+        function celebrate() {
+            // Add confetti effect
+            const colors = ['#667eea', '#764ba2', '#4CAF50', '#ffc107', '#f44336'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.top = '-10px';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+                    document.body.appendChild(confetti);
+                    
+                    let pos = -10;
+                    const fall = setInterval(() => {
+                        if (pos > window.innerHeight) {
+                            clearInterval(fall);
+                            confetti.remove();
+                        } else {
+                            pos += 5;
+                            confetti.style.top = pos + 'px';
+                            confetti.style.left = (parseFloat(confetti.style.left) + (Math.random() - 0.5) * 2) + 'px';
+                        }
+                    }, 20);
+                }, i * 30);
+            }
+        }
+
+        function downloadCertificate() {
+            // Track certificate download
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'certificate_download', {
+                    'button_clicked': 'Download Certificate'
+                });
+            }
+            alert('Certificate download feature will save your achievement! (In a real version, this would generate a PDF)');
+        }
+
+        function trackCVBuilder() {
+            // Track CV Builder link click
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'cv_builder_click', {
+                    'button_clicked': 'Build Your CV Now',
+                    'external_link': 'https://nana390-tech.github.io/CV-Building-Coach-/'
+                });
+            }
+        }
+
+        function flipCard(container) {
+            const card = container.querySelector('.flashcard');
+            card.classList.toggle('flipped');
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
